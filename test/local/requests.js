@@ -69,6 +69,118 @@ const tests = function(web3) {
     personalAccount = await web3.eth.personal.newAccount("password");
   });
 
+  // HTM-Martinet
+  describe.only("Hack the Money", function(){
+    it("Hello World", async function(){
+      const send = pify(web3._provider.send.bind(web3._provider));
+      // await send("helloWorld"); // no arguments
+      const result = await send({
+        id: new Date().getTime(),
+        jsonrpc: "2.0",
+        method: "helloWorld",
+        params: ["Hi--A message here"]
+      });
+    });
+
+    it("getContractStorage", async function(){
+      // const addr = Buffer.from('00000000000000000000000000000000000000ff', 'hex');
+      // const key = Buffer.from('60006000556000600055', 'hex');
+      const send = pify(web3._provider.send.bind(web3._provider));
+
+      const result = await send({
+        id: new Date().getTime(),
+        jsonrpc: "2.0",
+        method: "getContractStorage",
+        params: [
+          '00000000000000000000000000000000000000ff', 
+          '000000000000000000000000000000ff000000000000000000000000000000ff'
+        ]
+      });
+    });
+
+    it("putContractStorage", async function(){
+      // const addr = Buffer.from('00000000000000000000000000000000000000ff', 'hex');
+      // const key = Buffer.from('60006000556000600055', 'hex');
+      const send = pify(web3._provider.send.bind(web3._provider));
+
+      const result_get1 = await send({
+        id: new Date().getTime(),
+        jsonrpc: "2.0",
+        method: "getContractStorage",
+        params: [
+          '00000000000000000000000000000000000000ff', 
+          '000000000000000000000000000000ff000000000000000000000000000000ff'
+        ]
+      });
+
+      const result_put = await send({
+        id: new Date().getTime(),
+        jsonrpc: "2.0",
+        method: "putContractStorage",
+        params: [
+          '00000000000000000000000000000000000000ff', 
+          '000000000000000000000000000000ff000000000000000000000000000000ff',
+          '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
+        ]
+      });
+
+      const result_get2 = await send({
+        id: new Date().getTime(),
+        jsonrpc: "2.0",
+        method: "getContractStorage",
+        params: [
+          '00000000000000000000000000000000000000ff', 
+          '000000000000000000000000000000ff000000000000000000000000000000ff'
+        ]
+      });
+
+      var buf = Buffer.from(result_get2.result);
+
+      console.log("Received in test: " + buf.toString('hex'));
+    });
+
+    it.only("putContractCode", async function(){
+      const send = pify(web3._provider.send.bind(web3._provider));
+
+      const result_get1 = await send({
+        id: new Date().getTime(),
+        jsonrpc: "2.0",
+        method: "getContractCode",
+        params: [
+          '00000000000000000000000000000000000000ff', 
+        ]
+      });
+      var buf1 = Buffer.from(result_get1.result);
+      console.log("Received in test: " + buf1.toString('hex'));
+
+      const result_put = await send({
+        id: new Date().getTime(),
+        jsonrpc: "2.0",
+        method: "putContractCode",
+        params: [
+          '00000000000000000000000000000000000000ff', 
+          '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
+        ]
+      });
+
+      const result_get2 = await send({
+        id: new Date().getTime(),
+        jsonrpc: "2.0",
+        method: "getContractCode",
+        params: [
+          '00000000000000000000000000000000000000ff', 
+        ]
+      });
+
+      var buf2 = Buffer.from(result_get2.result);
+      console.log("Received in test: " + buf2.toString('hex'));
+    });
+
+
+  });
+
+  // End of HTM ---------------------
+
   describe("eth_accounts", function() {
     it("should return 10 addresses", function() {
       assert.deepStrictEqual(accounts.length, 10);
