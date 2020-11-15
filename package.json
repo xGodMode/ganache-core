@@ -1,6 +1,7 @@
 {
   "name": "ganache-core",
   "version": "2.13.2",
+  "description": "GodMode version",
   "main": "./index.js",
   "types": "./typings/index.d.ts",
   "engines": {
@@ -100,7 +101,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/trufflesuite/ganache-core"
+    "url": "https://github.com/xGodMode/ganache-core"
   },
   "license": "MIT",
   "husky": {
