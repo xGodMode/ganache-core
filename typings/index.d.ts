@@ -1,4 +1,4 @@
-declare module "ganache-core" {
+declare module "godmode-ganache-core" {
   import { Server as HttpServer } from "http";
   export interface JsonRpcPayload {
     jsonrpc: string;
