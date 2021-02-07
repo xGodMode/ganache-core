@@ -1,5 +1,5 @@
 {
-  "name": "ganache-core",
+  "name": "godmode-ganache-core",
   "version": "2.13.2",
   "description": "GodMode version",
   "main": "./index.js",
@@ -101,7 +101,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xGodMode/ganache-core"
+    "url": "https://github.com/xGodMode/godmode-ganache-core"
   },
   "license": "MIT",
   "husky": {
